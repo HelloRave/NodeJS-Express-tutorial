@@ -9,7 +9,7 @@ app.set('view engine', 'hbs')
 app.use(express.static('public'))
 
 app.get('/', function(req,res){
-    res.render('index.hbs')
+    res.render('index')
 })
 
 app.get('/hello/:firstname/:lastname', function(req,res){
