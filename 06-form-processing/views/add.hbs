@@ -1,0 +1,38 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+<form action="" method="POST"> 
+    <div>
+        <label for="">Enter the food name</label>
+        <input type="text" class="form-control" name="foodName">
+    </div>
+    <div>
+        <label for="">Select Meal: </label>
+        
+        <input type="radio" name="meal" value="breakfast">
+        <label for="">Breakfast</label>
+        
+        <input type="radio" name="meal" value="lunch">
+        <label for="">Lunch</label>
+
+        <input type="radio" name="meal" value="dinner">
+        <label for="">Dinner</label>
+    </div>
+    <div>
+        <label for="">Select tags:</label>
+        
+        <input type="checkbox" name="tags" value="home-cooked">
+        <label for="">Home cooked</label>
+
+        <input type="checkbox" name="tags" value="oily">
+        <label for="">Home cooked</label>
+
+        <input type="checkbox" name="tags" value="vegan">
+        <label for="">Vegan</label>
+
+    </div>
+    <input type="submit" class="btn btn-primary mt-3" value="submit">
+</form>
+{{/block}}
+
+{{/extends}}
