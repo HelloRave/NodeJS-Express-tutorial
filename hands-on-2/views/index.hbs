@@ -1,0 +1,26 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<form action="" method="POST">
+    <div>
+        <label class="form-label">Enter height</label>
+        <input name='height' type="number" step='0.01' placeholder="Enter height">
+    </div>
+    <div>
+        <label class="form-label">Enter weight</label>
+        <input name='weight' type="number" step='0.01' placeholder="Enter weight">
+    </div>
+    <div>
+        <label class="form-label">Choose units</label>
+        
+        <input type="radio" name="units" value="si" class="form-check-input" checked>
+        <label for="">SI</label>
+
+        <input type="radio" name="units" value="imperial" class="form-check-input">
+        <label for="">Imperial</label>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-primary" value="Submit">
+    </div>
+</form>
+{{/block}}
+{{/extends}}
