@@ -1,19 +1,27 @@
 {{#extends 'base'}}
 {{#block 'content'}}
+<h1>Food Sighting</h1>
+<a href="/food_sighting/create" class="btn btn-primary">Add New Sighting</a>
 <table class="table">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Description</th>
             <th>Food</th>
             <th>Date</th>
+            <th></th>
         </tr>
     </thead>
 
     {{#each foodSightings}}
     <tr>
+        <td>{{this._id}}</td>
         <td>{{this.description}}</td>
         <td>{{this.food}}</td>
         <td>{{this.datetime}}</td>
+        <td>
+            <a href="/{{this._id}}/update" class="btn btn-secondary btn-sm">Edit</a>
+        </td>
     </tr>
     {{/each}}
 </table>

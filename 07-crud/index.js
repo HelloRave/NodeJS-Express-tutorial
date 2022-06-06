@@ -11,6 +11,10 @@ app.use(express.static('public'));
 wax.on(hbs.handlebars);
 wax.setLayoutPath('./views/layouts');
 
+app.use(express.urlencoded({
+    extended: false
+}))
+
 const BASE_API_URL = 'https://ckx-restful-api.herokuapp.com/'
 
 app.get('/', async function(req,res){
@@ -32,6 +36,37 @@ app.post('/food_sighting/create', async function(req, res){
         'datetime': req.body.datetime
     }
     await axios.post(BASE_API_URL + 'sighting', data)
+    res.redirect('/')
+})
+
+app.get('/:sighting_id/update', async function(req, res){
+    let foodSightingId = req.params.sighting_id
+
+    let response = await axios.get(BASE_API_URL + 'sighting/' + foodSightingId)
+    let foodSighting = response.data
+
+    res.render('edit_food_form', {
+        'description': foodSighting.description,
+        'food': foodSighting.food,
+        'datetime': foodSighting.datetime.slice(0, -1) 
+    })
+})
+
+app.post('/:sighting_id/update', async function(req,res){
+    let description = req.body.description;
+    let food = req.body.food.split(',');
+    let datetime = req.body.datetime
+    
+    let sightingId = req.params.sighting_id
+
+    let payload = {
+        'description': description,
+        'food': food,
+        'datetime': datetime
+    }
+
+    await axios.put(BASE_API_URL + 'sighting/' + sightingId, payload)
+
     res.redirect('/')
 })
 
