@@ -3,15 +3,22 @@
 <table class="table">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Title</th>
             <th>Plot</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         {{#each movies}}
         <tr>
+            <td>{{this.id}}</td>
             <td>{{this.title}}</td>
             <td>{{this.plot}}</td>
+            <td>
+                <a href="/movie/update/{{this.id}}" class="btn btn-success btn-sm">Update</a>
+                <a href="/movie/delete/{{this.id}}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
         </tr>
         {{/each}}
     </tbody>
