@@ -1,0 +1,12 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<form action="" method="POST">
+    <h1>Deleting a food sighting</h1>
+    <div class="alert alert-danger">
+        Are you sure you want to delete: {{description}} which was added on {{datetime}}
+    </div>
+    <input type="submit" value="OK" class="btn btn-danger"/>
+    <a href="/" class="btn btn-success">Cancel</a>
+</form>
+{{/block}}
+{{/extends}}

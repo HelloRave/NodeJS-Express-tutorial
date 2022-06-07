@@ -70,6 +70,28 @@ app.post('/:sighting_id/update', async function(req,res){
     res.redirect('/')
 })
 
+
+app.get('/:sighting_id/delete', async function(req, res){
+    // id for sighting document to delete
+    let sightingId = req.params.sighting_id;
+
+    // details of sighting to delete
+    let response = await axios.get(BASE_API_URL + 'sighting/' + sightingId)
+    let foodSighting = response.data
+
+    // Render a form to ask if user really want to delete sighting 
+    res.render('confirm_delete',{
+        'foodSighting': foodSighting, 
+        'description': foodSighting.description,
+        'datetime': foodSighting.datetime
+    })
+})
+
+app.post('/:sighting_id/delete', async function(req, res){
+    await axios.delete(BASE_API_URL + 'sighting/' + req.params.sighting_id)
+    res.redirect('/')
+})
+
 app.listen(3000, function(){
     console.log('server started')
 })
