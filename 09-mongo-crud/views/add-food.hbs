@@ -1,0 +1,24 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<form method="POST">
+    <div>
+        <label for="">Food Name:</label>
+        <input type="text" name="foodRecordName" class="form-control">
+    </div>
+    <div>
+        <label for="">Calories</label>
+        <input type="text" name="calories" class="form-control" placeholder="Enter calories">
+    </div>
+    <div>
+        <label for="">Tags</label>
+        <input name='tags' type="checkbox" class="form-check-input" value="snack">
+        <label for="" class="form-check-label">Snack</label>
+        <input name='tags' type="checkbox" class="form-check-input" value="healthy">
+        <label for="" class="form-check-label">Healthy Food</label>
+        <input name='tags' type="checkbox" class="form-check-input" value="fried">
+        <label for="" class="form-check-label">Fried</label>
+    </div>
+    <input type="submit" class="btn btn-primary mt-3">
+</form>
+{{/block}}
+{{/extends}}

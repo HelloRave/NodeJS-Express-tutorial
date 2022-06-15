@@ -13,22 +13,55 @@ app.set('view engine', 'hbs');
 wax.on(hbs.handlebars);
 wax.setLayoutPath('./views/layouts')
 
+app.use(express.urlencoded({
+    extended: false
+}))
+
 const MONGO_URI = process.env.MONGO_URI
 
 async function main(){
-    const db = await connect(MONGO_URI, 'sample_airbnb');
+    const db = await connect(MONGO_URI, 'tgc18_cico');
     app.get('/test', async function(req, res){
         //Convert results to array of JS objects 
         let data = await db.collection('listingsAndReviews').find({}).limit(10).toArray();
         res.send(data);
     })
+
+    app.get('/', async function(req,res){
+        const allFoodRecords = await db.collection('food_records').find({}).toArray()
+        res.render('all-food',{
+            'allFood': allFoodRecords
+        })
+    })
+
+    app.get('/add-food', function(req,res){
+        res.render('add-food')
+    })
+    
+    app.post('/add-food', async function(req,res){
+        console.log(req.body)
+        let foodRecordName = req.body.foodRecordName;
+        let calories = req.body.calories;
+        let tags = [];
+        if (Array.isArray(req.body.tags)){
+            tags = req.body.tags
+        } else if (req.body.tags){
+            tags = [req.body.tags]; 
+        }
+    
+        let foodDocument = {
+            'food': foodRecordName,
+            'calories': calories,
+            'tags': tags
+        }
+    
+        await db.collection('food_records').insertOne(foodDocument);
+        res.send('new food form inserted')
+    })
 }
 
 main();
 
-app.get('/', function(req,res){
-    res.render('hello')
-})
 
 app.listen(3000, function(){
     console.log('hello world')
