@@ -16,6 +16,10 @@
             <td>{{this.food}}</td>
             <td>{{this.calories}}</td>
             <td>{{this.tags}}</td>
+            <td>
+                <a href="/update-food/{{this._id}}" class="btn btn-primary">Update</a>
+                <a href="/delete-food/{{this._id}}" class="btn btn-danger">Delete</a>
+            </td>
         </tr>
         {{/each}}
     </tbody>
