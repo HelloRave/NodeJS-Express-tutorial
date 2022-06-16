@@ -9,6 +9,7 @@
             <th>Description</th>
             <th>Age</th>
             <th>Tags</th>
+            <th>HDB-Approved</th>
             <th>More Info</th>
         </tr>
     </thead>
@@ -21,7 +22,12 @@
             <td>{{this.description}}</td>
             <td>{{this.age}}</td>
             <td>{{this.tags}}</td>
-            <td><a href="/pet/{{this._id}}" class="btn btn-primary">More Info</a></td>
+            <td>{{this.hdb-approved}}</td>
+            <td>
+                <a href="/add-pet" class="btn btn-primary">Add Pet</a>
+                <a href="/update-pet/{{this._id}}" class="btn btn-primary">Update Pet</a>
+                <a href="/pet/{{this._id}}" class="btn btn-primary">More Info</a>
+            </td>
         </tr>
         {{/each}}
     </tbody>

@@ -3,6 +3,10 @@ const hbs = require('hbs');
 const wax = require('wax-on');
 const dotenv = require('dotenv').config()
 const {connect} = require('./MongoUtil')
+const ObjectId = require('mongodb').ObjectId
+const helpers = require('handlebars-helpers')({
+    'handlebars': hbs.handlebars
+})
 
 const app = express();
 
@@ -34,10 +38,6 @@ async function main(){
 
     app.post('/add-pet', async function(req, res){
         // res.send(req.body)
-        let name = req.body.name;
-        let breed = req.body.breed; 
-        let description = req.body.description;
-        let age = req.body.age;
         let tags = [];
         if (Array.isArray(req.body.tags)){
             tags = req.body.tags
@@ -46,19 +46,57 @@ async function main(){
         }
 
         let petDocument = {
-            'name': name,
-            'breed': breed,
-            'description': description,
-            'age': age,
-            'tags': tags
+            'name': req.body.name,
+            'breed': req.body.breed,
+            'description': req.body.description,
+            'age': req.body.age,
+            'tags': tags,
+            'hdb-approved': req.body['hdb-approved']
         }
 
         await db.collection('pet_records').insertOne(petDocument)
-        res.send('Form submitted')
+        res.redirect('/')
     })
 
     app.get('/pet/:id', function(req,res){
         res.send(req.params.id)
+    })
+
+    app.get('/update-pet/:id', async function(req, res){
+        // res.send(req.params.id)
+        let petRecord = await db.collection('pet_records').findOne({
+            '_id': ObjectId(req.params.id)
+        })
+        res.render('update-pet', {
+            'petRecord': petRecord
+        })
+    })
+
+    app.post('/update-pet/:id', async function(req, res){
+        // res.send(req.body)
+        let tags = [];
+        if (Array.isArray(req.body.tags)){
+            tags = req.body.tags
+        } else if (req.body.tags){
+            tags.push(req.body.tags)
+        }
+
+        let updatedPetDocument = {
+            'name': req.body.name,
+            'breed': req.body.breed,
+            'description': req.body.description,
+            'age': req.body.age,
+            'tags': tags,
+            'hdb-approved': req.body['hdb-approved']
+        }
+        
+        await db.collection('pet_records').updateOne({
+            '_id': ObjectId(req.params.id)
+        }, {
+            '$set': updatedPetDocument
+        })
+
+        res.redirect('/')
     })
 }
 
