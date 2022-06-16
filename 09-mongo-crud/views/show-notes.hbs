@@ -1,0 +1,14 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<h1>{{foodRecord.food}}</h1>
+    {{#each foodRecord.notes}}
+    <div class="card">
+        <div class="card-body">
+            {{this.content}}
+            <a href="/food/{{../foodRecord._id}}/notes/{{this._id}}/update" class="btn btn-primary">Update Notes</a>
+            <a href="/food/{{../foodRecord._id}}/notes/{{this._id}}/delete" class="btn btn-danger">Delete Notes</a>
+        </div>
+    </div>
+    {{/each}}
+{{/block}}
+{{/extends}}
